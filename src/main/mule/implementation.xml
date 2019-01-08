@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:sap="http://www.mulesoft.org/schema/mule/sap"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd">
+	<flow name="implementationFlow" doc:id="0f90d715-36d6-403b-a4cb-e1ae42cc2b45" >
+		<http:listener doc:name="Listener" doc:id="2dcba51f-bc35-4d6b-ad16-4e50943fa2e1" config-ref="HTTP_Listener_config" path="${http.path}"/>
+		<set-payload value="#[output application/json
+---
+read('
+{
+  &quot;LastModifiedDate&quot;: &quot;2019-01-04T15:09:15.000Z&quot;,
+  &quot;AccountId&quot;: &quot;001o0000007Aqv5AAC&quot;,
+  &quot;IsWon&quot;: true,
+  &quot;Id&quot;: &quot;0061N00000dNaUAQA0&quot;,
+  &quot;CloseDate&quot;: &quot;2019-01-04T00:00:00.000Z&quot;,
+  &quot;Name&quot;: &quot;DNF 3&quot;
+}
+')]" doc:name="Set Payload" doc:id="7a74adc8-4585-4594-a508-d9880c16e56e" />
+		<flow-ref doc:name="Flow Reference" doc:id="6d1b6419-146f-4f7c-9a73-df954d1ee947" name="o2c_subflow"/>
+	</flow>
+	<flow name="sfdc-sap-order-cashFlow" doc:id="813bd4f7-1354-4c4d-a78b-acbd05bf7228" >
+		<salesforce:subscribe-topic doc:name="Salesforce Streaming Events" doc:id="362c8138-2e90-479f-b31e-c159c99ff495" config-ref="Salesforce_Config" topic="/ClosedWonOpportunities">
+		</salesforce:subscribe-topic>
+		<set-variable value="#[payload]" doc:name="Set SFDC Event" doc:id="a536624a-d63f-4cb7-8cf1-2a3cc4aafd2a" variableName="sfdcEvent"/>
+		<flow-ref doc:name="Flow Reference" doc:id="179a1a54-03e6-46f3-b9f0-edaed5a81929" name="o2c_subflow"/>
+	</flow>
+	<sub-flow name="o2c_subflow" doc:id="4cc7b84d-383f-488d-8696-d2f250212a09" >
+		<logger level="INFO" doc:name="Logger" doc:id="3eb264a6-c622-4069-bb77-d2c676bd906b" message="#[output applicaton/json --- payload]" />
+		<ee:transform doc:name="Store Values" doc:id="cc8be0f2-b447-434f-a1df-ed8ea881ec6e">
+			<ee:message>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable variableName="oppId"><![CDATA[%dw 2.0
+output application/java
+---
+payload.AccountId]]></ee:set-variable>
+				<ee:set-variable variableName="oppName"><![CDATA[%dw 2.0
+output application/java
+---
+payload.Name]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<tracking:custom-event doc:name="Opp Recieved From Salesforce" doc:id="bed06e20-5043-4259-94f8-24bad8d6ee97" event-name="Opportunity Name">
+			<tracking:meta-data key="Opportunity Name" value="#[vars.oppName]" />
+		</tracking:custom-event>
+		<flow-ref doc:name="Flow Reference" doc:id="27054347-eb9c-45ba-9617-de1533ce76ea" name="synchCustomer_subflow"/>
+		<salesforce:query doc:name="Retrieve Opportunity Line Items" doc:id="08cae9f8-0cdb-4205-ae0d-69caabee0211" config-ref="Salesforce_Config">
+			<salesforce:salesforce-query >SELECT Quantity, ProductCode FROM OpportunityLineItem WHERE OpportunityId = ':Id'</salesforce:salesforce-query>
+			<salesforce:parameters ><![CDATA[#[output application/java
+---
+{
+	Id : vars.sfdcEvent.Id
+}]]]></salesforce:parameters>
+		</salesforce:query>
+		<logger level="INFO" doc:name="Logger" doc:id="aeeaa770-fad8-4cd1-b094-be11ec0f988e" message="SFDC Opp Line Items: #[output application/json --- payload]"/>
+		<ee:transform doc:name="Create SALESORDER_CREATEFROMDAT1 Request" doc:id="6a79221a-9c20-4722-8d20-2e609b117c24" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+	BAPI_SALESORDER_CREATEFROMDAT2: {
+		"import": {
+			ORDER_HEADER_IN: {
+				DOC_TYPE: 'TA',
+				SALES_ORG: '3000',
+				DISTR_CHAN: '10',
+				DIVISION: '00',
+				PURCH_NO_C: '9191919',
+				PURCH_NO_S: '9191919',
+				PO_DAT_S: now() as String {format: "yyyyMMdd"}
+			}
+		},
+		"tables": {
+			ORDER_ITEMS_IN: {
+				(payload map ((orderItem , indexOfOrderItem) -> {
+					row @(rowid: indexOfOrderItem + 1): {
+						ITM_NUMBER: indexOfOrderItem + 1,
+						MATERIAL: orderItem.ProductCode,
+						PLANT: '3000',
+						TARGET_QTY: orderItem.Quantity
+					}
+				}))
+			},
+			ORDER_PARTNERS: {
+				row @(rowid: 1): {
+					PARTN_ROLE: 'WE',
+					PARTN_NUMB: vars.sapCustomerNumber 
+				},
+				row @(rowid: 2): {
+					PARTN_ROLE: 'AG',
+					PARTN_NUMB: vars.sapCustomerNumber 
+				}
+			},
+			ORDER_SCHEDULES_IN: {
+				(payload map ((orderItem , indexOfOrderItem) -> {
+					row @(rowid: indexOfOrderItem + 1): {
+						ITM_NUMBER: indexOfOrderItem + 1,
+						REQ_QTY: orderItem.Quantity					}
+				})) 
+			}
+		}
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Log Request" doc:id="21f1a3f8-f74b-4e30-99de-c10921ab2d53" message="BAPI_SALESORDER_CREATEFROMDAT2 Request:  #[output applicaton/xml --- payload]" />
+		<try doc:name="Try" doc:id="32e06888-e5a5-459e-a680-d9bb7b8f9bbc" transactionalAction="ALWAYS_BEGIN">
+			<sap:execute-synchronous-remote-function-call doc:name="Create Sales Order In SAP" doc:id="d4914177-43ee-4c04-92b7-9412da3f305d" config-ref="SAP_Outbound" transactionalAction="ALWAYS_JOIN" key="BAPI_SALESORDER_CREATEFROMDAT2">
+		</sap:execute-synchronous-remote-function-call>
+		</try>
+		<logger level="INFO" doc:name="Log Response" doc:id="fb1b3919-4648-4fda-889c-fead231b456a" message="BAPI_SALESORDER_CREATEFROMDAT2 Response:  #[payload]" />
+		<flow-ref doc:name="Flow Reference" doc:id="99cd92b1-d17c-4769-bac5-973588c12f98" name="processXML"/>
+		<ee:transform doc:name="Create SO Input For SFDC" doc:id="f0ed73c6-8bdd-41dc-9537-5a9fafb568f4">
+			<ee:message>
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java 
+---
+[{
+	Id: vars.sfdcEvent.Id,
+	OrderNumber__c: payload.BAPI_SALESORDER_CREATEFROMDAT2."export".SALESDOCUMENT,
+	SAP_Sync__c: true
+}]]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+			</ee:variables>
+		</ee:transform>
+		<tracking:custom-event doc:name="Sales Order Created Event" doc:id="a1abeca5-ab32-4c7a-8d04-20c6787f4f4a" event-name="Sales Order Created in SAP">
+			<tracking:meta-data key="Opportunity Name" value="#[vars.oppName]" />
+			<tracking:meta-data key="Sales Order Number" value="#[payload[0]['OrderNumber__c']]" />
+		</tracking:custom-event>
+		<salesforce:update type="Opportunity" doc:name="Update SO# in Salesforce" doc:id="a4f83592-4575-4a93-b8d3-83c297f248ff" config-ref="Salesforce_Config"/>
+		<logger level="INFO" doc:name="Logger Response" doc:id="faa3fb8c-02ed-4654-a0f3-66bf27d67078" message="Salesforce update opportunity response: #[output application/json --- payload]"/>
+		<tracking:custom-event doc:name="Opportunity Updated With SAP Order ID" doc:id="d3d0ee37-d71a-4a2d-bc5b-a0c26ccfc724" event-name="Opportunity Updated With SAP Order ID">
+			<tracking:meta-data key="Opportunity Name" value="#[vars.oppName]" />
+		</tracking:custom-event>
+	</sub-flow>
+	<sub-flow name="synchCustomer_subflow" doc:id="1c88e27c-1561-46f1-b50d-905b3d636856" >
+		<salesforce:query-single doc:name="Retrieve Account" doc:id="3614f351-a9a9-4449-817a-ed95f469ff7d" config-ref="Salesforce_Config">
+			<salesforce:salesforce-query >SELECT Id, Name, Description, Phone, Type, BillingCity, BillingCountry, BillingPostalCode, BillingState, BillingStreet, Industry, Credit_Limit__c  FROM Account WHERE Id = ':Id'</salesforce:salesforce-query>
+			<salesforce:parameters ><![CDATA[#[output application/java
+---
+{
+	Id : vars.oppId
+}]]]></salesforce:parameters>
+		</salesforce:query-single>
+		<logger level="INFO" doc:name="Logger" doc:id="e2407ce9-be6b-44c2-a25a-70151ffc41e2" message="#[output applicaton/json --- payload]"/>
+		<ee:transform doc:name="Create CUSTOMER_FIND Request" doc:id="addec2e6-ede8-4304-8edc-9e08295ce528" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+	BAPI_CUSTOMER_FIND: {
+		"import": {
+			MAX_CNT: 10,
+			PL_HOLD: ""
+		},
+		"tables": {
+			SELOPT_TAB: {
+				row: {
+					COMP_CODE: 3000,
+					TABNAME: "KNA1",
+					FIELDNAME: "NAME1",
+					FIELDVALUE: payload.Name
+				}
+			}
+		}
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Log Request" doc:id="b255646e-5bc7-45fa-a297-79aa49dadfc1" message="BAPI_CUSTOMER_FIND Request:  #[output applicaton/xml --- payload]"/>
+		<sap:execute-synchronous-remote-function-call key="BAPI_CUSTOMER_FIND" doc:name="Search For Customer in SAP" doc:id="98375c88-9230-4ec2-9340-bbbb46b29f2d" config-ref="SAP_Outbound"/>
+		<logger level="INFO" doc:name="Log Response" doc:id="3f922ee2-7cf5-4623-b715-4d0d901c6683" message="BAPI_CUSTOMER_FIND Response:  #[payload]" />
+		<ee:transform doc:name="Transform Message" doc:id="a3222fb9-ccaf-46ee-bfcd-e7c28727db75" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="sapCustomerNumber" ><![CDATA[%dw 2.0
+output application/dw
+---
+payload.BAPI_CUSTOMER_FIND.tables.RESULT_TAB.row.CUSTOMER as String]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<choice doc:name="Choice" doc:id="9ccc92c9-dc29-4f01-b9f0-283617d3d96f" >
+			<when expression="#[vars.sapCustomerNumber == null]">
+				<logger level="INFO" doc:name="Logger" doc:id="007be05d-ddde-4d06-86c4-b08bec366441" message="#[vars.sapCustomerNumber]" />
+				<ee:transform doc:name="Create CUSTOMER_FROM_DATA1 Request" doc:id="dfc16716-9c85-403a-9f7d-14bf95c4ed2a">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+---
+{
+	BAPI_CUSTOMER_CREATEFROMDATA1: {
+		"import": {
+			PI_COMPANYDATA: {
+				TITLE_KEY: "0003",
+				NAME: payload.Name,
+				NAME_2: payload.Description,
+				CITY: payload.BillingCity,
+				POSTL_COD1: payload.BillingPostalCode,
+				STREET: payload.BillingStreet,
+				HOUSE_NO: "",
+				COUNTRY: "US",
+				LANGU: "EN",
+				REGION: payload.BillingState,
+				TEL1_NUMBR: "",
+				TEL1_EXT: "",
+				FAX_NUMBER: "",
+				E_MAIL: "",
+				CURRENCY: "USD",
+				CURRENCY_ISO: ""
+			},
+			PI_COPYREFERENCE: {
+				SALESORG: "3000",
+				DISTR_CHAN: "10",
+				DIVISION: "00",
+				REF_CUSTMR: "VIPER"
+			},
+			PI_OPT_COMPANYDATA: {
+				TRANSPZONE: "0000000004",
+				CONTROL_ACCOUNT: "0000140000",
+				PMNTTRMS: "NT60",
+				SHIP_COND: "02",
+				DELYG_PLNT: "3000",
+				PART_DLV: "",
+				C_CTR_AREA: "0001"
+			}
+		}
+	}
+}]]></ee:set-payload>
+					</ee:message>
+					<ee:variables>
+						<ee:set-variable variableName="salesforceAccountId"><![CDATA[%dw 2.0
+output application/java
+---
+payload.Id]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<logger level="INFO" doc:name="Log Request" doc:id="d7f53757-0441-4620-aae8-fd1f742ee51e" message="BAPI_CUSTOMER_CREATEFROMDATA1 Request:  #[output applicaton/xml --- payload]" />
+				<sap:execute-synchronous-remote-function-call key="BAPI_CUSTOMER_CREATEFROMDATA1" doc:name="Create Customer in SAP" doc:id="ef81cc3c-e84a-4c24-8059-3af438f3e149" config-ref="SAP_Outbound" />
+				<logger level="INFO" doc:name="Log Response" doc:id="9de0fd85-a9dd-4637-b248-979a5c24a41b" message="BAPI_CUSTOMER_CREATEFROMDATA1 Response:  #[payload]" />
+				<ee:transform doc:name="Create Account Update Request" doc:id="94ba63eb-01bc-477c-8af9-537e641f3534">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+{
+	Id: vars.salesforceAccountId,
+	SAP_ID__c: payload.BAPI_CUSTOMER_CREATEFROMDATA1.export.CUSTOMERNO
+}]]></ee:set-payload>
+					</ee:message>
+					<ee:variables>
+				<ee:set-variable variableName="sapCustomerNumber"><![CDATA[%dw 2.0
+output application/java
+---
+payload.BAPI_CUSTOMER_CREATEFROMDATA1.export.CUSTOMERNO]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<salesforce:update-single type="Account" doc:name="Update SAP Customer Number In Account" doc:id="96721ff5-0db5-41fb-b6a7-d067c3339a15" config-ref="Salesforce_Config" />
+				<ee:transform doc:name="Create CREDITLIMIT_CREATE request" doc:id="2cdfcad8-e8f7-4e9e-98e9-8f1c2f81a03c">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+{
+	ZSDBAPI_CREDITLIMIT_CREATE: {
+		"import": {
+			IV_KKBER: 1000.0,
+			IV_KLIME: 1000.0,
+			IV_KLIMG: 1000.0,
+			IV_KLIMK: 1000.0,
+			IV_KUNNR: vars.sapCustomerNumber,
+			IV_WAERS: "USD"
+		}
+	}
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="Log Request" doc:id="c1844989-5de2-485b-8777-3a25545e502e" message="ZSDBAPI_CREDITLIMIT_CREATE Request:  #[output applicaton/xml --- payload]" />
+				<sap:execute-synchronous-remote-function-call key="ZSDBAPI_CREDITLIMIT_CREATE" doc:name="Create Credit Limit (Custom BAPI)" doc:id="2f923ac7-fb35-464f-986b-c8ecd63a9b0a" config-ref="SAP_Outbound" />
+				<logger level="INFO" doc:name="Log Response" doc:id="49a3e395-301a-49da-ac6e-f66744bf824b" message="ZSDBAPI_CREDITLIMIT_CREATE Response:  #[payload]" />
+				<set-payload value="#[vars.sapCustomerNumber]" doc:name="Set SAP Customer Number" doc:id="bc3b62d9-3f8f-4029-84b4-b7a759f7a8db" />
+				<tracking:custom-event doc:name="Customer created in SAP" doc:id="4b2d4355-f9e8-411f-ae02-ed60e962ef55" event-name="Customer created in SAP">
+					<tracking:meta-data key="SAP Customer Number" value="#[vars.sapCustomerNumber]" />
+				</tracking:custom-event>
+			</when>
+			<otherwise>
+				<set-payload value="#[vars.sapCustomerNumber]" doc:name="Set SAP Customer Number" doc:id="de513479-3b67-4114-a912-426dc86a734d" />
+				<tracking:custom-event doc:name="Customer found in SAP" doc:id="d69d7169-bc70-4f86-9956-d0577c3f26d6" event-name="Customer found in SAP" >
+					<tracking:meta-data key="SAP Customer Number" value="#[payload]" />
+				</tracking:custom-event>
+			</otherwise>
+		</choice>
+	</sub-flow>
+	<flow name="processXML" doc:id="46cb05c1-3680-40bc-a582-b9882acb6542" >
+		<set-payload value="#[payload]" doc:name="Set Payload To Text" doc:id="7b605563-6de5-4b5f-88d0-5c99025ec008" mimeType="text/plain"/>
+		<logger level="INFO" doc:name="Logger" doc:id="c4f0dbbc-b1bf-4711-b2ec-a4274ee6c150" message="XML as text: #[payload]"/>
+		<ee:transform doc:name="Strip Null Values" doc:id="df955ceb-a870-4236-b0ff-9d07a5d5c0c1" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+input payload text/plain
+output text/plain
+---
+payload replace /&#0;/ with "0"]]></ee:set-payload>
+			</ee:message>
+			<ee:variables />
+		</ee:transform>
+		<set-payload value="#[payload]" doc:name="Set Payload To XML" doc:id="113a4d4b-4880-4164-974a-29649cd162b7" mimeType="application/xml" />
+	</flow>
+	<flow name="sfdc-sap-receive-invoiceFlow" doc:id="95814aa3-d440-4f93-b211-536cd6d658e5" >
+		<sap:document-source operationTimeout="10" doc:name="Recieve Invoic IDoc" doc:id="02780d4e-1a07-439b-a1aa-2e284b314f1d" config-ref="SAP_Inbound" gatewayHost="${sap.jcoGwHost}" gatewayService="${sap.jcoGwService}" programID="${sap.jcoProgramId}" connectionCount="${sap.jcoConnectionCount}"/>
+		<logger level="INFO" doc:name="Logger" doc:id="e99799c3-0106-46cf-b16f-e6c0d3914d8f" message="IDoc message: #[output applicaton/json --- payload]"/>
+		<tracking:custom-event doc:name="Recieved Invoice From SAP" doc:id="edb63f17-fd5f-4efe-bb2b-677884936025" event-name="Recieved Invoice From SAP">
+			<tracking:meta-data key="SAP Order ID" value="#[payload.INVOIC0.IDOC.E1EDK02.BELNR]" />
+			<tracking:meta-data key="SAP Invoice ID" value="#[payload.INVOIC02.IDOC.E1EDK02..BELNR]" />
+		</tracking:custom-event>
+		<ee:transform doc:name="Create Opportunity Update Request" doc:id="3717d854-3a7d-48a1-81f9-6de34584b4fd">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+[{
+	OrderNumber__c: payload.INVOIC02.IDOC.*E1EDK02[?( $.QUALF == "002")][0].BELNR,
+	Invoice_Number__c: payload.INVOIC02.IDOC.*E1EDK02[?( $.QUALF == "009")][0].BELNR
+}]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<salesforce:upsert type="Opportunity" doc:name="Update Invoice Number" doc:id="1206e8af-a5cd-4ac2-805c-dbe03dc2a513" config-ref="Salesforce_Config" externalIdFieldName="OrderNumber__c"/>
+		<tracking:custom-event doc:name="Opportunity Updated In Salesforce" doc:id="60e1e3ac-b60a-4dee-91df-33128b23b815" event-name="Opportunity Updated In Salesforce"/>
+	</flow>
+</mule>

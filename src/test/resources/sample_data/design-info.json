@@ -1,0 +1,14 @@
+{
+  "sampleData": {
+    "d965761d-5219-4bb2-8cec-f960eba6a1ba": {
+      "payload": "sample_data/unknown.xml"
+    },
+    "dfc16716-9c85-403a-9f7d-14bf95c4ed2a": {
+      "payload": "sample_data/BAPI_CUSTOMER_FIND.xml"
+    },
+    "283f572b-8598-4bc3-8ef2-d1c026e6c966": {
+      "payload": "sample_data/BAPI_SALESORDER_CREATEFROMDAT2.xml",
+      "vars-oppId": "sample_data/defaultstringtype.dwl"
+    }
+  }
+}

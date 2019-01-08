@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="OpportunityEvent" format="json">
+      <types:shape format="weave" example="examples/sfdc-opp.json"><![CDATA[%dw 2.0
+type OpportunityEvent = {|
+  LastModifiedDate: String, 
+  AccountId: String, 
+  IsWon: Boolean, 
+  Id: String, 
+  CloseDate: String, 
+  Name: String
+|} {"MetadataFormat": "json",
+"example": "{\"LastModifiedDate\":\"2019-01-04T15:09:15.000Z\",\"AccountId\":\"001o0000007Aqv5AAC\",\"IsWon\":true,\"Id\":\"0061N00000dNaUAQA0\",\"CloseDate\":\"2019-01-04T00:00:00.000Z\",\"Name\":\"DNF 3\"}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="SAPCustResponse" format="xml">
+      <types:example format="xml" element="BAPI_CUSTOMER_FIND" location="examples/sap-cust-found-response.xml"/>
+    </types:type>
+    <types:type name="value" format="java">
+      <types:shape format="raml"><![CDATA[#%RAML 1.0 DataType
+type: string]]></types:shape>
+    </types:type>
+    <types:type name="SAPCreateCustRequest" format="xml">
+      <types:example format="xml" element="BAPI_CUSTOMER_CREATEFROMDATA1" location="examples/sap-create-customer-request.xml"/>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#cc8be0f2-b447-434f-a1df-ed8ea881ec6e">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="OpportunityEvent"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:variables>
+          <types:variable name="appId" type="OpportunityEvent"/>
+        </types:variables>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#dfc16716-9c85-403a-9f7d-14bf95c4ed2a">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="SAPCreateCustRequest"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#94ba63eb-01bc-477c-8af9-537e641f3534"/>
+  <types:enrichment select="#f0ed73c6-8bdd-41dc-9537-5a9fafb568f4"/>
+</types:mule>

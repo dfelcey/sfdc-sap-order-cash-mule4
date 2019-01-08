@@ -1,0 +1,780 @@
+<BAPI_SALESORDER_CREATEFROMDAT2>
+	<import>
+		<BEHAVE_WHEN_ERROR />
+		<BINARY_RELATIONSHIPTYPE />
+		<CONVERT />
+		<INT_NUMBER_ASSIGNMENT />
+		<LOGIC_SWITCH>
+			<PRICING />
+			<ATP_WRKMOD />
+			<SCHEDULING />
+			<NOSTRUCTURE />
+			<COND_HANDL />
+			<ADDR_CHECK />
+		</LOGIC_SWITCH>
+		<ORDER_HEADER_IN>
+			<REFOBJTYPE />
+			<REFOBJKEY />
+			<REFDOCTYPE />
+			<DOC_TYPE>TA</DOC_TYPE>
+			<COLLECT_NO />
+			<SALES_ORG>3000</SALES_ORG>
+			<DISTR_CHAN>10</DISTR_CHAN>
+			<DIVISION>00</DIVISION>
+			<SALES_GRP />
+			<SALES_OFF />
+			<REQ_DATE_H />
+			<DATE_TYPE />
+			<PURCH_DATE />
+			<PO_METHOD />
+			<PO_SUPPLEM />
+			<REF_1 />
+			<NAME />
+			<TELEPHONE />
+			<PRICE_GRP />
+			<CUST_GROUP />
+			<SALES_DIST />
+			<PRICE_LIST />
+			<INCOTERMS1 />
+			<INCOTERMS2 />
+			<PMNTTRMS />
+			<DLV_BLOCK />
+			<BILL_BLOCK />
+			<ORD_REASON />
+			<COMPL_DLV />
+			<PRICE_DATE />
+			<QT_VALID_F />
+			<QT_VALID_T />
+			<CT_VALID_F />
+			<CT_VALID_T />
+			<CUST_GRP1 />
+			<CUST_GRP2 />
+			<CUST_GRP3 />
+			<CUST_GRP4 />
+			<CUST_GRP5 />
+			<PURCH_NO_C>9191919</PURCH_NO_C>
+			<PURCH_NO_S>9191919</PURCH_NO_S>
+			<PO_DAT_S>Mon Jan 07 00:00:00 GMT 2019</PO_DAT_S>
+			<PO_METH_S />
+			<REF_1_S />
+			<SD_DOC_CAT />
+			<DOC_DATE />
+			<WAR_DATE />
+			<SHIP_COND />
+			<PP_SEARCH />
+			<DUN_COUNT>0</DUN_COUNT>
+			<DUN_DATE />
+			<DLVSCHDUSE />
+			<PLDLVSTYP />
+			<REF_DOC />
+			<COMP_CDE_B />
+			<ALTTAX_CLS />
+			<TAX_CLASS2 />
+			<TAX_CLASS3 />
+			<TAX_CLASS4 />
+			<TAX_CLASS5 />
+			<TAX_CLASS6 />
+			<TAX_CLASS7 />
+			<TAX_CLASS8 />
+			<TAX_CLASS9 />
+			<REF_DOC_L />
+			<ASS_NUMBER />
+			<REFDOC_CAT />
+			<ORDCOMB_IN />
+			<BILL_SCHED />
+			<INVO_SCHED />
+			<MN_INVOICE />
+			<EXRATE_FI>0.00000</EXRATE_FI>
+			<ADD_VAL_DY>00</ADD_VAL_DY>
+			<FIX_VAL_DY />
+			<PYMT_METH />
+			<ACCNT_ASGN />
+			<EXCHG_RATE>0.00000</EXCHG_RATE>
+			<BILL_DATE />
+			<SERV_DATE />
+			<DUNN_KEY />
+			<DUNN_BLOCK />
+			<PMTGAR_PRO />
+			<DEPARTM_NO />
+			<REC_POINT />
+			<DOC_NUM_FI />
+			<CSTCNDGRP1 />
+			<CSTCNDGRP2 />
+			<CSTCNDGRP3 />
+			<CSTCNDGRP4 />
+			<CSTCNDGRP5 />
+			<DLV_TIME />
+			<CURRENCY />
+			<CURR_ISO />
+			<CREATED_BY />
+			<TAXDEP_CTY />
+			<TAXDST_CTY />
+			<EUTRI_DEAL />
+			<MAST_CONTR />
+			<REF_PROC />
+			<CHKPRTAUTH />
+			<CMLQTY_DAT />
+			<VERSION />
+			<NOTIF_NO />
+			<WBS_ELEM />
+			<EXCH_RATE_FI_V>0.00000</EXCH_RATE_FI_V>
+			<EXCHG_RATE_V>0.00000</EXCHG_RATE_V>
+			<FKK_CONACCT />
+			<CAMPAIGN>&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;
+			</CAMPAIGN>
+			<DOC_CLASS />
+			<H_CURR />
+			<H_CURR_ISO />
+			<SHIP_TYPE />
+			<S_PROC_IND />
+			<REF_DOC_L_LONG />
+			<LINE_TIME>Thu Jan 01 00:00:00 GMT 1970</LINE_TIME>
+			<CALC_MOTIVE />
+			<PSM_PSTNG_DATE />
+			<TREASURY_ACC_SYMBOL />
+			<BUSINESS_EVENT_TCODE />
+			<MODIFICATION_ALLOWED />
+			<CANCELLATION_ALLOWED />
+			<PAYMENT_METHODS />
+			<BUSINESS_PARTNER_NO />
+			<REPORTING_FREQ />
+			<SEPA_MANDATE_ID />
+		</ORDER_HEADER_IN>
+		<ORDER_HEADER_INX>
+			<UPDATEFLAG />
+			<DOC_TYPE />
+			<COLLECT_NO />
+			<SALES_ORG />
+			<DISTR_CHAN />
+			<DIVISION />
+			<SALES_GRP />
+			<SALES_OFF />
+			<REQ_DATE_H />
+			<DATE_TYPE />
+			<PURCH_DATE />
+			<PO_METHOD />
+			<PO_SUPPLEM />
+			<REF_1 />
+			<NAME />
+			<TELEPHONE />
+			<PRICE_GRP />
+			<CUST_GROUP />
+			<SALES_DIST />
+			<PRICE_LIST />
+			<INCOTERMS1 />
+			<INCOTERMS2 />
+			<PMNTTRMS />
+			<DLV_BLOCK />
+			<BILL_BLOCK />
+			<ORD_REASON />
+			<COMPL_DLV />
+			<PRICE_DATE />
+			<QT_VALID_F />
+			<QT_VALID_T />
+			<CT_VALID_F />
+			<CT_VALID_T />
+			<CUST_GRP1 />
+			<CUST_GRP2 />
+			<CUST_GRP3 />
+			<CUST_GRP4 />
+			<CUST_GRP5 />
+			<PURCH_NO_C />
+			<PURCH_NO_S />
+			<PO_DAT_S />
+			<PO_METH_S />
+			<REF_1_S />
+			<SD_DOC_CAT />
+			<DOC_DATE />
+			<WAR_DATE />
+			<SHIP_COND />
+			<PP_SEARCH />
+			<DUN_COUNT />
+			<DUN_DATE />
+			<DLVSCHDUSE />
+			<PLDLVSTYP />
+			<REF_DOC />
+			<COMP_CDE_B />
+			<ALTTAX_CLS />
+			<TAX_CLASS2 />
+			<TAX_CLASS3 />
+			<TAX_CLASS4 />
+			<TAX_CLASS5 />
+			<TAX_CLASS6 />
+			<TAX_CLASS7 />
+			<TAX_CLASS8 />
+			<TAX_CLASS9 />
+			<REF_DOC_L />
+			<ASS_NUMBER />
+			<REFDOC_CAT />
+			<ORDCOMB_IN />
+			<BILL_SCHED />
+			<INVO_SCHED />
+			<MN_INVOICE />
+			<EXRATE_FI />
+			<ADD_VAL_DY />
+			<FIX_VAL_DY />
+			<PYMT_METH />
+			<ACCNT_ASGN />
+			<EXCHG_RATE />
+			<BILL_DATE />
+			<SERV_DATE />
+			<DUNN_KEY />
+			<DUNN_BLOCK />
+			<PROMOTION />
+			<PMTGAR_PRO />
+			<DEPARTM_NO />
+			<REC_POINT />
+			<POITM_NO_S />
+			<DOC_NUM_FI />
+			<CSTCNDGRP1 />
+			<CSTCNDGRP2 />
+			<CSTCNDGRP3 />
+			<CSTCNDGRP4 />
+			<CSTCNDGRP5 />
+			<DLV_TIME />
+			<CURRENCY />
+			<TAXDEP_CTY />
+			<TAXDST_CTY />
+			<EUTRI_DEAL />
+			<MAST_CONTR />
+			<REF_PROC />
+			<CHKPRTAUTH />
+			<CMLQTY_DAT />
+			<VERSION />
+			<NOTIF_NO />
+			<WBS_ELEM />
+			<EXCH_RATE_FI_V />
+			<EXCHG_RATE_V />
+			<FKK_CONACCT />
+			<CAMPAIGN />
+			<DOC_CLASS />
+			<H_CURR />
+			<SHIP_TYPE />
+			<S_PROC_IND />
+			<LINE_TIME />
+			<CALC_MOTIVE />
+			<PSM_PSTNG_DATE />
+			<TREASURY_ACC_SYMBOL />
+			<BUSINESS_EVENT_TCODE />
+			<MODIFICATION_ALLOWED />
+			<CANCELLATION_ALLOWED />
+			<PAYMENT_METHODS />
+			<BUSINESS_PARTNER_NO />
+			<REPORTING_FREQ />
+			<SEPA_MANDATE_ID />
+		</ORDER_HEADER_INX>
+		<SALESDOCUMENTIN />
+		<SENDER>
+			<LOG_SYSTEM />
+		</SENDER>
+		<TESTRUN />
+	</import>
+	<export>
+		<SALESDOCUMENT>0000020525</SALESDOCUMENT>
+	</export>
+	<tables>
+		<EXTENSIONEX />
+		<EXTENSIONIN />
+		<ORDER_CCARD />
+		<ORDER_CFGS_BLOB />
+		<ORDER_CFGS_INST />
+		<ORDER_CFGS_PART_OF />
+		<ORDER_CFGS_REF />
+		<ORDER_CFGS_REFINST />
+		<ORDER_CFGS_VALUE />
+		<ORDER_CFGS_VK />
+		<ORDER_CONDITIONS_IN />
+		<ORDER_CONDITIONS_INX />
+		<ORDER_ITEMS_IN>
+			<row id="0">
+				<ITM_NUMBER>000001</ITM_NUMBER>
+				<HG_LV_ITEM>000000</HG_LV_ITEM>
+				<PO_ITM_NO />
+				<MATERIAL>MULETEST0</MATERIAL>
+				<ALT_TO_ITM>000000</ALT_TO_ITM>
+				<CUST_MAT22 />
+				<BATCH />
+				<DLV_GROUP>000</DLV_GROUP>
+				<PART_DLV />
+				<REASON_REJ />
+				<BILL_BLOCK />
+				<BILL_DATE />
+				<PLANT>3000</PLANT>
+				<STORE_LOC />
+				<TARGET_QTY>1.000</TARGET_QTY>
+				<TARGET_QU />
+				<T_UNIT_ISO />
+				<ITEM_CATEG />
+				<SHORT_TEXT />
+				<PRC_GROUP1 />
+				<PRC_GROUP2 />
+				<PRC_GROUP3 />
+				<PRC_GROUP4 />
+				<PRC_GROUP5 />
+				<PROD_HIERA />
+				<MATL_GROUP />
+				<PURCH_NO_C />
+				<PURCH_DATE />
+				<PO_METHOD />
+				<REF_1 />
+				<PURCH_NO_S />
+				<PO_DAT_S />
+				<PO_METH_S />
+				<REF_1_S />
+				<POITM_NO_S />
+				<PRICE_GRP />
+				<CUST_GROUP />
+				<SALES_DIST />
+				<PRICE_LIST />
+				<INCOTERMS1 />
+				<INCOTERMS2 />
+				<ORDCOMP_IN />
+				<BILL_SCHED />
+				<INVO_SCHED />
+				<MN_INVOICE />
+				<EX_RATE_FI>0.00000</EX_RATE_FI>
+				<ADD_VAL_DY>00</ADD_VAL_DY>
+				<FIX_VAL_DY />
+				<PMNTTRMS />
+				<PYMT_METH />
+				<ACCNT_ASGN />
+				<EXCHG_RATE>0.00000</EXCHG_RATE>
+				<PRICE_DATE />
+				<SERV_DATE />
+				<DUNN_KEY />
+				<DUNN_BLOCK />
+				<PROMOTION />
+				<PMTGAR_PRO />
+				<DOC_NUM_FI />
+				<DEPARTM_NO />
+				<REC_POINT />
+				<CSTCNDGRP1 />
+				<CSTCNDGRP2 />
+				<CSTCNDGRP3 />
+				<CSTCNDGRP4 />
+				<CSTCNDGRP5 />
+				<DLV_TIME />
+				<SALES_UNIT />
+				<S_UNIT_ISO />
+				<TRG_QTY_NO>0</TRG_QTY_NO>
+				<TRGQTY_DEN>0</TRGQTY_DEN>
+				<RNDDLV_QTY>0.000</RNDDLV_QTY>
+				<MAXDEVAMNT>0.000</MAXDEVAMNT>
+				<MAXDEVPER>0</MAXDEVPER>
+				<MAXDEV_DAY>0</MAXDEV_DAY>
+				<USAGE_IND />
+				<FIXED_QUAN />
+				<UNLMT_DLV />
+				<OVERDLVTOL>0.0</OVERDLVTOL>
+				<UNDDLV_TOL>0.0</UNDDLV_TOL>
+				<DIVISION />
+				<SALQTYNUM>0</SALQTYNUM>
+				<SALQTYDEN>0</SALQTYDEN>
+				<GROSS_WGHT>0.000</GROSS_WGHT>
+				<NET_WEIGHT>0.000</NET_WEIGHT>
+				<UNTOF_WGHT />
+				<UNOF_WTISO />
+				<VOLUME>0.000</VOLUME>
+				<VOLUNIT />
+				<VOLUNITISO />
+				<DLV_PRIO>00</DLV_PRIO>
+				<SHIP_POINT />
+				<ROUTE />
+				<CREATED_BY />
+				<TAX_CLASS1 />
+				<TAX_CLASS2 />
+				<TAX_CLASS3 />
+				<TAX_CLASS4 />
+				<TAX_CLASS5 />
+				<TAX_CLASS6 />
+				<TAX_CLASS7 />
+				<TAX_CLASS8 />
+				<TAX_CLASS9 />
+				<MAT_PR_GRP />
+				<VAL_TYPE />
+				<FIXDAT_QTY />
+				<BOMEXPL_NO />
+				<RESANALKEY />
+				<REQMTS_TYP />
+				<NO_GR_POST />
+				<BUS_TRANST />
+				<OVERHD_KEY />
+				<CSTG_SHEET />
+				<MATFRGTGRP />
+				<PLDLVSHDIN />
+				<SEQ_NO />
+				<BIL_FORM />
+				<DLI_PROFIL />
+				<REV_TYPE />
+				<BEGDEM_PER />
+				<PR_REF_MAT />
+				<REFOBJTYPE />
+				<REFOBJKEY />
+				<REFLOGSYS />
+				<ORDER_PROB>000</ORDER_PROB>
+				<MAX_PL_DLV>0</MAX_PL_DLV>
+				<CFOP_CODE />
+				<TAXLAWICMS />
+				<TAXLAWIPI />
+				<SD_TAXCODE />
+				<ASSORT_MOD />
+				<COMP_QUANT>0.000</COMP_QUANT>
+				<TARGET_VAL>0E-9</TARGET_VAL>
+				<CURRENCY />
+				<CURR_ISO />
+				<PROFIT_CTR />
+				<ORDERID />
+				<WBS_ELEM />
+				<DEPREC_PER>0.00</DEPREC_PER>
+				<REF_DOC />
+				<REF_DOC_IT>000000</REF_DOC_IT>
+				<REF_DOC_CA />
+				<CUST_MAT35 />
+				<EXCH_RATE_FI_V>0.00000</EXCH_RATE_FI_V>
+				<EXCHG_RATE_V>0.00000</EXCHG_RATE_V>
+				<ITEMGUID_ATP />
+				<VAL_CONTR />
+				<VAL_CON_I>000000</VAL_CON_I>
+				<CONFIG_ID />
+				<INST_ID />
+				<MAT_EXT />
+				<MAT_GUID />
+				<MAT_VERS />
+				<P_MAT_EXT />
+				<P_MAT_GUID />
+				<P_MAT_VERS />
+				<FUNC_AREA />
+				<ALTERN_BOM />
+				<FKK_CONACCT />
+				<EAN_UPC />
+				<PRODCAT />
+				<SHIP_TYPE />
+				<S_PROC_IND />
+				<FUNC_AREA_LONG />
+				<BILL_REL />
+				<VW_UEPOS />
+				<CAMPAIGN>&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;&#0;
+				</CAMPAIGN>
+				<DLVSCHDUSE />
+				<CFOP_LONG />
+				<SELECTION />
+				<MAT_ENTRD />
+				<LOG_SYSTEM_OWN />
+				<ITM_TYPE_USAGE />
+				<TAXLAWISS />
+				<MAT_ENTRD_EXTERNAL />
+				<MAT_ENTRD_GUID />
+				<MAT_ENTRD_VERSION />
+				<LOC_TAXCAT />
+				<LOC_ZEROVAT />
+				<LOC_ACTCODE />
+				<LOC_DISTTYPE />
+				<LOC_TXRELCLAS />
+				<CALC_MOTIVE />
+				<COMPREAS />
+				<FUND />
+				<FUNDS_CTR />
+				<CMMT_ITEM />
+				<GRANT_NBR />
+				<BUDGET_PERIOD />
+				<TAXLAWCOFINS />
+				<TAXLAWPIS />
+				<TREASURY_ACC_SYMBOL />
+				<BUSINESS_EVENT_TCODE />
+				<MODIFICATION_ALLOWED />
+				<CANCELLATION_ALLOWED />
+				<PAYMENT_METHODS />
+				<BUSINESS_PARTNER_NO />
+				<REPORTING_FREQ />
+				<SEPA_MANDATE_ID />
+				<REQ_SEGMENT />
+				<TP_SUBLEVL />
+				<TP_AGENCID />
+				<TP_ALTRAID />
+				<TP_BEGPER>0000</TP_BEGPER>
+				<TP_ENDPER>0000</TP_ENDPER>
+				<TP_AVTYPE />
+				<TP_MAIN_ACCT />
+				<TP_SUB_ACCT />
+				<TP_BETC />
+			</row>
+		</ORDER_ITEMS_IN>
+		<ORDER_ITEMS_INX />
+		<ORDER_KEYS>
+			<row id="0">
+				<REFOBJTYP />
+				<REFOBJECT>HEADER</REFOBJECT>
+				<REFOBJKEY />
+				<REFLOGSYS />
+				<DOC_NUMBER>0000020525</DOC_NUMBER>
+				<ITM_NUMBER>000000</ITM_NUMBER>
+				<SCHED_LIN>0000</SCHED_LIN>
+				<COND_NO />
+				<CONDITEMNO>000000</CONDITEMNO>
+				<COND_ST_NO>000</COND_ST_NO>
+				<COND_COUNT>00</COND_COUNT>
+				<COND_TYPE />
+				<STATUS />
+				<TINDEX>000000</TINDEX>
+				<ADDRESS />
+				<ABRLI>0000</ABRLI>
+				<ABART />
+			</row>
+			<row id="1">
+				<REFOBJTYP />
+				<REFOBJECT>ADDRESS</REFOBJECT>
+				<REFOBJKEY />
+				<REFLOGSYS />
+				<DOC_NUMBER />
+				<ITM_NUMBER>000000</ITM_NUMBER>
+				<SCHED_LIN>0000</SCHED_LIN>
+				<COND_NO />
+				<CONDITEMNO>000000</CONDITEMNO>
+				<COND_ST_NO>000</COND_ST_NO>
+				<COND_COUNT>00</COND_COUNT>
+				<COND_TYPE />
+				<STATUS />
+				<TINDEX>000001</TINDEX>
+				<ADDRESS>0000729782</ADDRESS>
+				<ABRLI>0000</ABRLI>
+				<ABART />
+			</row>
+			<row id="2">
+				<REFOBJTYP />
+				<REFOBJECT>ADDRESS</REFOBJECT>
+				<REFOBJKEY />
+				<REFLOGSYS />
+				<DOC_NUMBER />
+				<ITM_NUMBER>000000</ITM_NUMBER>
+				<SCHED_LIN>0000</SCHED_LIN>
+				<COND_NO />
+				<CONDITEMNO>000000</CONDITEMNO>
+				<COND_ST_NO>000</COND_ST_NO>
+				<COND_COUNT>00</COND_COUNT>
+				<COND_TYPE />
+				<STATUS />
+				<TINDEX>000002</TINDEX>
+				<ADDRESS>0000729782</ADDRESS>
+				<ABRLI>0000</ABRLI>
+				<ABART />
+			</row>
+			<row id="3">
+				<REFOBJTYP />
+				<REFOBJECT>ITEM</REFOBJECT>
+				<REFOBJKEY />
+				<REFLOGSYS />
+				<DOC_NUMBER />
+				<ITM_NUMBER>000001</ITM_NUMBER>
+				<SCHED_LIN>0000</SCHED_LIN>
+				<COND_NO />
+				<CONDITEMNO>000000</CONDITEMNO>
+				<COND_ST_NO>000</COND_ST_NO>
+				<COND_COUNT>00</COND_COUNT>
+				<COND_TYPE />
+				<STATUS>S</STATUS>
+				<TINDEX>000001</TINDEX>
+				<ADDRESS />
+				<ABRLI>0000</ABRLI>
+				<ABART />
+			</row>
+			<row id="4">
+				<REFOBJTYP />
+				<REFOBJECT>SCHEDULE</REFOBJECT>
+				<REFOBJKEY />
+				<REFLOGSYS />
+				<DOC_NUMBER />
+				<ITM_NUMBER>000001</ITM_NUMBER>
+				<SCHED_LIN>0000</SCHED_LIN>
+				<COND_NO />
+				<CONDITEMNO>000000</CONDITEMNO>
+				<COND_ST_NO>000</COND_ST_NO>
+				<COND_COUNT>00</COND_COUNT>
+				<COND_TYPE />
+				<STATUS>S</STATUS>
+				<TINDEX>000001</TINDEX>
+				<ADDRESS />
+				<ABRLI>0000</ABRLI>
+				<ABART />
+			</row>
+			<row id="5">
+				<REFOBJTYP />
+				<REFOBJECT>SCHEDULE</REFOBJECT>
+				<REFOBJKEY />
+				<REFLOGSYS />
+				<DOC_NUMBER />
+				<ITM_NUMBER>000001</ITM_NUMBER>
+				<SCHED_LIN>0001</SCHED_LIN>
+				<COND_NO />
+				<CONDITEMNO>000000</CONDITEMNO>
+				<COND_ST_NO>000</COND_ST_NO>
+				<COND_COUNT>00</COND_COUNT>
+				<COND_TYPE />
+				<STATUS />
+				<TINDEX>000000</TINDEX>
+				<ADDRESS />
+				<ABRLI>0000</ABRLI>
+				<ABART />
+			</row>
+		</ORDER_KEYS>
+		<ORDER_PARTNERS>
+			<row id="0">
+				<PARTN_ROLE>WE</PARTN_ROLE>
+				<PARTN_NUMB>0000000007</PARTN_NUMB>
+				<ITM_NUMBER>000000</ITM_NUMBER>
+				<TITLE />
+				<NAME />
+				<NAME_2 />
+				<NAME_3 />
+				<NAME_4 />
+				<STREET />
+				<COUNTRY />
+				<COUNTR_ISO />
+				<POSTL_CODE />
+				<POBX_PCD />
+				<POBX_CTY />
+				<CITY />
+				<DISTRICT />
+				<REGION />
+				<PO_BOX />
+				<TELEPHONE />
+				<TELEPHONE2 />
+				<TELEBOX />
+				<FAX_NUMBER />
+				<TELETEX_NO />
+				<TELEX_NO />
+				<LANGU />
+				<LANGU_ISO />
+				<UNLOAD_PT />
+				<TRANSPZONE />
+				<TAXJURCODE />
+				<ADDRESS />
+				<PRIV_ADDR />
+				<ADDR_TYPE />
+				<ADDR_ORIG />
+				<ADDR_LINK />
+				<REFOBJTYPE />
+				<REFOBJKEY />
+				<REFLOGSYS />
+			</row>
+			<row id="1">
+				<PARTN_ROLE>AG</PARTN_ROLE>
+				<PARTN_NUMB>0000000007</PARTN_NUMB>
+				<ITM_NUMBER>000000</ITM_NUMBER>
+				<TITLE />
+				<NAME />
+				<NAME_2 />
+				<NAME_3 />
+				<NAME_4 />
+				<STREET />
+				<COUNTRY />
+				<COUNTR_ISO />
+				<POSTL_CODE />
+				<POBX_PCD />
+				<POBX_CTY />
+				<CITY />
+				<DISTRICT />
+				<REGION />
+				<PO_BOX />
+				<TELEPHONE />
+				<TELEPHONE2 />
+				<TELEBOX />
+				<FAX_NUMBER />
+				<TELETEX_NO />
+				<TELEX_NO />
+				<LANGU />
+				<LANGU_ISO />
+				<UNLOAD_PT />
+				<TRANSPZONE />
+				<TAXJURCODE />
+				<ADDRESS />
+				<PRIV_ADDR />
+				<ADDR_TYPE />
+				<ADDR_ORIG />
+				<ADDR_LINK />
+				<REFOBJTYPE />
+				<REFOBJKEY />
+				<REFLOGSYS />
+			</row>
+		</ORDER_PARTNERS>
+		<ORDER_SCHEDULES_IN>
+			<row id="0">
+				<ITM_NUMBER>000001</ITM_NUMBER>
+				<SCHED_LINE>0000</SCHED_LINE>
+				<REQ_DATE />
+				<DATE_TYPE />
+				<REQ_TIME>Thu Jan 01 00:00:00 GMT 1970</REQ_TIME>
+				<REQ_QTY>1.000</REQ_QTY>
+				<REQ_DLV_BL />
+				<SCHED_TYPE />
+				<TP_DATE />
+				<MS_DATE />
+				<LOAD_DATE />
+				<GI_DATE />
+				<TP_TIME>Thu Jan 01 00:00:00 GMT 1970</TP_TIME>
+				<MS_TIME>Thu Jan 01 00:00:00 GMT 1970</MS_TIME>
+				<LOAD_TIME>Thu Jan 01 00:00:00 GMT 1970</LOAD_TIME>
+				<GI_TIME>Thu Jan 01 00:00:00 GMT 1970</GI_TIME>
+				<REFOBJTYPE />
+				<REFOBJKEY />
+				<REFLOGSYS />
+				<DLV_DATE />
+				<DLV_TIME>Thu Jan 01 00:00:00 GMT 1970</DLV_TIME>
+				<REL_TYPE />
+				<PLAN_SCHED_TYPE />
+			</row>
+		</ORDER_SCHEDULES_IN>
+		<ORDER_SCHEDULES_INX />
+		<ORDER_TEXT />
+		<PARTNERADDRESSES />
+		<RETURN>
+			<row id="0">
+				<TYPE>S</TYPE>
+				<ID>V4</ID>
+				<NUMBER>233</NUMBER>
+				<MESSAGE>SALES_HEADER_IN has been processed successfully</MESSAGE>
+				<LOG_NO />
+				<LOG_MSG_NO>000000</LOG_MSG_NO>
+				<MESSAGE_V1>VBAKKOM</MESSAGE_V1>
+				<MESSAGE_V2>01/08/2019</MESSAGE_V2>
+				<MESSAGE_V3>18:45:02</MESSAGE_V3>
+				<MESSAGE_V4 />
+				<PARAMETER>SALES_HEADER_IN</PARAMETER>
+				<ROW>0</ROW>
+				<FIELD />
+				<SYSTEM>T90CLNT090</SYSTEM>
+			</row>
+			<row id="1">
+				<TYPE>S</TYPE>
+				<ID>V4</ID>
+				<NUMBER>233</NUMBER>
+				<MESSAGE>SALES_ITEM_IN has been processed successfully</MESSAGE>
+				<LOG_NO />
+				<LOG_MSG_NO>000000</LOG_MSG_NO>
+				<MESSAGE_V1>VBAPKOM</MESSAGE_V1>
+				<MESSAGE_V2>000001</MESSAGE_V2>
+				<MESSAGE_V3 />
+				<MESSAGE_V4 />
+				<PARAMETER>SALES_ITEM_IN</PARAMETER>
+				<ROW>1</ROW>
+				<FIELD />
+				<SYSTEM>T90CLNT090</SYSTEM>
+			</row>
+			<row id="2">
+				<TYPE>S</TYPE>
+				<ID>V1</ID>
+				<NUMBER>311</NUMBER>
+				<MESSAGE>Standard Order 20525 has been saved</MESSAGE>
+				<LOG_NO />
+				<LOG_MSG_NO>000000</LOG_MSG_NO>
+				<MESSAGE_V1>Standard Order</MESSAGE_V1>
+				<MESSAGE_V2>20525</MESSAGE_V2>
+				<MESSAGE_V3 />
+				<MESSAGE_V4 />
+				<PARAMETER>SALES_HEADER_IN</PARAMETER>
+				<ROW>0</ROW>
+				<FIELD />
+				<SYSTEM>T90CLNT090</SYSTEM>
+			</row>
+		</RETURN>
+	</tables>
+</BAPI_SALESORDER_CREATEFROMDAT2>

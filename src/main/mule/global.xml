@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
+	<configuration-properties doc:name="Configuration properties" doc:id="97681c68-28da-4001-b81f-14c7dbb80e19" file="config.yaml" />
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="9a308735-29bd-4584-a4b9-c03eb3cc5c4c" >
+		<salesforce:basic-connection username="${sfdc.username}" password="${sfdc.password}" securityToken="${sfdc.token}" url="${sfdc.url}"/>
+	</salesforce:sfdc-config>
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="7f45264e-926f-4632-a3fa-5579794743cc" basePath="${http.base_path}" >
+		<http:listener-connection host="${http.host}" port="${http.port}" />
+	</http:listener-config>
+	<sap:outbound-config name="SAP_Outbound" doc:name="SAP Outbound" doc:id="e720e293-b3d9-4da1-9f19-0ff23108baa3" >
+		<sap:simple-connection-provider-connection applicationServerHost="${sap.jcoAsHost}" username="${sap.jcoUser}" password="${sap.jcoPasswd}" systemNumber="${sap.jcoSysnr}" client="${sap.jcoClient}" language="${sap.jcoLang}" />
+	</sap:outbound-config>
+	<sap:inbound-config name="SAP_Inbound" doc:name="SAP Inbound" doc:id="2e6ca18c-f999-43a7-9393-cf0769332499" >
+		<sap:simple-connection-provider-connection applicationServerHost="${sap.jcoAsHost}" username="${sap.jcoUser}" password="${sap.jcoPasswd}" systemNumber="${sap.jcoSysnr}" client="${sap.jcoClient}" language="${sap.jcoLang}" />
+	</sap:inbound-config>
+</mule>

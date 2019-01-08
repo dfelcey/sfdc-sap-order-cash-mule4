@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<BAPI_SALESORDER_CREATEFROMDAT2>
+  <import>
+    <ORDER_HEADER_IN>
+      <DOC_TYPE>TA</DOC_TYPE>
+      <SALES_ORG>3000</SALES_ORG>
+      <DISTR_CHAN>10</DISTR_CHAN>
+      <DIVISION>00</DIVISION>
+      <PURCH_NO_C>9191919</PURCH_NO_C>
+      <PURCH_NO_S>9191919</PURCH_NO_S>
+      <PO_DAT_S>20190106</PO_DAT_S>
+    </ORDER_HEADER_IN>
+  </import>
+  <tables>
+    <ORDER_ITEMS_IN/>
+    <ORDER_PARTNERS>
+      <row rowid="1">
+        <PARTN_ROLE>WE</PARTN_ROLE>
+        <PARTN_NUMB/>
+      </row>
+      <row rowid="2">
+        <PARTN_ROLE>AG</PARTN_ROLE>
+        <PARTN_NUMB/>
+      </row>
+    </ORDER_PARTNERS>
+    <ORDER_SCHEDULES_IN/>
+  </tables>
+</BAPI_SALESORDER_CREATEFROMDAT2>
