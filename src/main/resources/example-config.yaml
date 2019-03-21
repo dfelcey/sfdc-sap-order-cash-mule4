@@ -1,0 +1,29 @@
+sap:
+  jcoClient: "000"
+  jcoUser: "xxx"
+  jcoPasswd: "yyy"
+  jcoLang: "EN"
+  jcoAsHost: "example.com"
+  jcoSysnr: "00"
+  jcoTrace: "false"
+  jcoPoolCapacity: "3"
+  jcoPeakLimit: "2"
+  jcoGwHost: "sap.example.com"
+  jcoGwService: "3300"
+  jcoProgramId: "ZZZ"
+  jcoConnectionCount: "2"
+
+sfdc:
+  username: "sfdcuser"
+  password: "password"
+  token: "xxxxxxxxxxx"
+  url: "https://login.salesforce.com/services/Soap/u/43.0"
+
+http:
+  host: "0.0.0.0"
+  port: "8081"
+  path: "/test"
+  base_path: ""
+  
+api:
+  max_rows: "100"
