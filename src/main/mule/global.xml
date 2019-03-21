@@ -10,7 +10,7 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
 	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="9a308735-29bd-4584-a4b9-c03eb3cc5c4c" >
 		<salesforce:basic-connection username="${sfdc.username}" password="${sfdc.password}" securityToken="${sfdc.token}" url="${sfdc.url}"/>
 	</salesforce:sfdc-config>
-	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="7f45264e-926f-4632-a3fa-5579794743cc" basePath="${http.base_path}" >
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="7f45264e-926f-4632-a3fa-5579794743cc">
 		<http:listener-connection host="${http.host}" port="${http.port}" />
 	</http:listener-config>
 	<sap:outbound-config name="SAP_Outbound" doc:name="SAP Outbound" doc:id="e720e293-b3d9-4da1-9f19-0ff23108baa3" >

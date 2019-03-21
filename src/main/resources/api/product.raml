@@ -1,0 +1,43 @@
+#%RAML 0.8
+baseUri: http://localhost:8081/api
+title: Demo Inventory Company
+version: 1.0.0
+mediaType: application/json
+
+/products:
+  displayName: Information about the products/materials.
+  get:
+    description: Retrive the complete list of products.
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                 "productId":"MULETEST0",
+                  "name":"Telephone",
+                  "description":"Device used for long distance communication.",
+                  "availibleQuantity":500
+                },
+                {
+                 "productId":"MULETEST1",
+                  "name":"Fax Machine",
+                  "description":"Like mail but instantaneous",
+                  "availibleQuantity":1000
+                }
+              ]
+  /{productId}:
+    get:
+      description: Get product information including availible quantity based on global product id.
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "productId":"MULETEST0",
+                  "name":"Telephone",
+                  "description":"Device used for long distance communication.",
+                  "availibleQuantity":500
+                }
