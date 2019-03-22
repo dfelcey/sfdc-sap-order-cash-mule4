@@ -48,4 +48,5 @@ target/
 velocity.log
 
 **/config.yaml
+**/*.so
 
