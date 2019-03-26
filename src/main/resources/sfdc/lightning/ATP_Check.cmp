@@ -1,0 +1,10 @@
+<aura:component controller="ATP_Apex_Controller" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/> 
+    <aura:attribute name="recordId" type="String" default=""/>
+      
+    <article class="slds-card">
+        <div class="slds-card__body slds-align_absolute-center slds-p-around_small">
+            <lightning:button variant="brand" label="ATP Check" title="ATP Check" onclick="{!c.atpCall}" class="slds-m-left_x-small"></lightning:button>
+        </div>
+    </article>    
+</aura:component>
